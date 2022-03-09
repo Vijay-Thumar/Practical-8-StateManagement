@@ -1,0 +1,17 @@
+.form_buttons button{
+    border: none;
+    border-radius:6px;
+    margin: 0px 10px;
+}
+
+.submit_button{
+    background-color: #DB3447;
+    color: white;
+}
+.reset_button{
+    background-color: #0080FA;
+    color: white;
+}
+.profile_photo{
+    text-align: center;
+}

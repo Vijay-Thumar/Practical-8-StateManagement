@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import Signup from './component/Signup';
+import SignupImg from './assets/signup.png';
+import styles from './css/App.module.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`${styles.flex_container}`}>
+        <div>
+          <Signup />
+        </div>
+        <div>
+          <img className={`${styles.signup_image}`} src={SignupImg}></img>
+        </div>
     </div>
   );
 }
