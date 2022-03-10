@@ -1,6 +1,6 @@
 import Signup from './component/Signup';
 import SignupImg from './assets/signup.png';
-import styles from './css/App.module.css'
+import styles from './css/App.module.css';
 
 function App() {
   return (
