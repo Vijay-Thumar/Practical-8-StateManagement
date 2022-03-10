@@ -4,3 +4,6 @@
     background-color: #FAEBD8;
     border: 1px solid black;
 }
+.formik_error{
+    color: red;
+}

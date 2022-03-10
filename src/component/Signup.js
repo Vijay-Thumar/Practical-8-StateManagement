@@ -1,30 +1,38 @@
 import React from 'react'
-import { Formik } from 'formik';
-import { Form, 
-  //  Input, InputNumber, Cascader, Select, Row, Col, Checkbox, Button 
+import { Form, Input,
+  //   InputNumber, Cascader, Select, Row, Col, Checkbox, Button 
   } from 'antd';
+
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
 import TextField from './TextField';
 import styles from './css/Signup.module.css';
 import UploadImg from './UploadImg';
-import * as Yup from 'yup';
 
 function Signup() {
+
   const validate = Yup.object({
     name: Yup.string() 
-    .max(15, 'Name is too larg it mustbe in between 15 charcters')
+    .max(15, 'Name is too larg it must be in between 15 charcters')
+    .min(3, 'Name is too short it must be greater than 3 charcters')
     .required('Name Required'),
+
     email: Yup.string() 
-    .max(15, 'Enter valid email')
+    .email('Invalid email')
     .required('Email Required'),
+
     phoneNo: Yup.number() 
     .max(10, 'Please enter valid phone number')
     .min(10, 'number must be 10 digits')
     .required('Phone Number Required'),
+
     password: Yup.string() 
     .max(15, 'Please enter valid password')
     .required('Password Required'),
+
     confirmPassword: Yup.string() 
-    .oneOf([ Yup.ref('password'),null], 'password must match')
+    .oneOf([ Yup.ref('password'),null], 'password dosen\'t match')
     .required('Confirm password is Required'),
   })
   return (
