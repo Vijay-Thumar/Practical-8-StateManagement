@@ -1,15 +1,9 @@
-.form_buttons button{
-    border: none;
-    border-radius:6px;
-    margin: 0px 10px;
-}
-
 .submit_button{
     background-color: #DB3447;
     color: white;
     border: none;
     border-radius:6px;
-    margin: 0px 10px;
+    margin: 25px 10px 10px 0;
 }
 .reset_button{
     background-color: #0080FA;
@@ -20,8 +14,4 @@
 }
 .profile_photo{
     text-align: center;
-}
-
-.main_signup_container{
-    
 }

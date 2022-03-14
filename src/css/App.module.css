@@ -6,3 +6,6 @@
 .signup_image{
     width: 80%;
 }
+.form_container{
+    max-height: fit-content;
+}

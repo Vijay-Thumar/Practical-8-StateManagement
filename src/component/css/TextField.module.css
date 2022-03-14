@@ -1,9 +1,17 @@
 .text_field input
 {
-    margin: 15px 0px;
+    margin: 0;
     background-color: #FAEBD8;
-    border: 1px solid black;
+    border: 2px solid lightgray;
+    border-radius: 6px;
 }
 .formik_error{
     color: red;
+    margin: 0 0 15px 0;
+    position: absolute;
+    font-size: small;
+}
+.label_css{
+    color: rgb(50,50,50);
+    margin: 25px 0px 5px 0px;
 }
