@@ -7,11 +7,21 @@
 .submit_button{
     background-color: #DB3447;
     color: white;
+    border: none;
+    border-radius:6px;
+    margin: 0px 10px;
 }
 .reset_button{
     background-color: #0080FA;
     color: white;
+    border: none;
+    border-radius:6px;
+    margin: 0px 10px;
 }
 .profile_photo{
     text-align: center;
+}
+
+.main_signup_container{
+    
 }

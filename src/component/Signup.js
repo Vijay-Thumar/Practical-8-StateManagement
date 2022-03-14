@@ -55,10 +55,8 @@ class Signup extends React.Component {
                 <TextField label="PhoneNo" name="phone" type="text"/>
                 <TextField label="Password" name="password"  type="text"/>
                 <TextField label="Confirm Password" name="confirmPassword" type="text"/>
-                <div className="button-layout">
                   <button className={`${styles.submit_button} ${styles.form_buttons}`}>Submit</button>
                   <button className={`${styles.reset_button} ${styles.form_buttons}`}>Reset</button>
-                </div>
               </Form>
             </div>
         )}
