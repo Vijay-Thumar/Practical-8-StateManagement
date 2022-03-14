@@ -1,33 +1,26 @@
-import styles from './css/TextField.module.css';
-import { ErrorMessage, useField} from 'formik';
+import React from 'react';
+import styles from './css/TextField.module.css'
+import { ErrorMessage} from 'formik';
 import {Input} from 'antd';
 
-function TextField ({ label, ...props}) {
-    const [field, meta] = useField(props);
-    console.log(field,meta)
+
+class TextField extends React.Component {
+    
+
+render() {
     return(
         <div className={`${styles.text_field}`}>
-
-            <label htmlFor={field.name}> {label} </label>
+            <label htmlFor={this.props.name}>{this.props.label}</label>
             <br/>
-
-            <Input 
-            // placeholder={`Enter ${label}`} 
-            autoComplete='off' 
-            {...field} {...props.label} />
-
-            
-            {/* <br/> */}
-            {/* <input type="text" autoComplete='off' {...field} {...props.label} /> */}
+            <Input autoComplete='off' {...this.props.field} {...this.props.label}></Input>
             <br/>
-            
-            {/* Erro message */}
+           
             <div className={`${styles.formik_error}`}>
-            <ErrorMessage name={field.name} ></ErrorMessage>
+            <ErrorMessage name={this.props.name} />
             </div>
-            
         </div>
-    )
+    );
+}
 }
 
 export default TextField;
