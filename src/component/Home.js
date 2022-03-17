@@ -5,8 +5,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                User 
-                .name:
+                User name:
                 <h1>{this.props.uname}</h1>
             </div>
         )

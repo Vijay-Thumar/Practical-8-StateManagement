@@ -1,4 +1,8 @@
 import { createStore } from 'redux';
+import { composeWithDevTools } from "redux-devtools-extension";
+
+
+
 
 const defaultState = {
     name: "",
@@ -9,7 +13,7 @@ const defaultState = {
 }
 
 const signupReducer = (
-    state = { defaultState }, action) => {
+    state = defaultState , action) => {
 
     if (action.type === 'storeSignupData') {
         return {
@@ -51,6 +55,8 @@ const signupReducer = (
 
 
 
-const store = createStore(signupReducer);
+const store = createStore(signupReducer, {}, composeWithDevTools());
+// export const store = createStore(rootReducer, {}, composeWithDevTools());
+
 
 export default store;

@@ -94,7 +94,6 @@ class Signup2 extends React.Component {
 
                   if (!formError.name && !formError.email && !formError.phone && !formError.password && !formError.confirmPassword) {
                     console.log('You send data to store! all valadition is completed.');
-                    window.location('/home');
                   }
                 }
 
