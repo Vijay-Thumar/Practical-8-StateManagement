@@ -1,0 +1,11 @@
+.flex_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup_image{
+    width: 80%;
+}
+.form_container{
+    max-height: fit-content;
+}
