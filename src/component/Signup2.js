@@ -7,6 +7,7 @@ import { Formik, Form, Field } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import imgstyles from './css/UploadImg.module.css'
 // import { Link } from "react-router-dom";
 
 let signupPayload = {
@@ -93,6 +94,7 @@ class Signup2 extends React.Component {
 
                   if (!formError.name && !formError.email && !formError.phone && !formError.password && !formError.confirmPassword) {
                     console.log('You send data to store! all valadition is completed.');
+                    window.location('/home');
                   }
                 }
 
@@ -102,7 +104,16 @@ class Signup2 extends React.Component {
                 <div className={`${styles.main_signup_container}`}>
                   <Form >
                     <h1>Sign up</h1>
-                    <UploadImg className={`${styles.profile_photo}`} />
+                    {/* <UploadImg className={`${styles.profile_photo}`} /> */}
+
+                    <div className={`${imgstyles.upload_img}`}>
+                      <Field type='file' name="file" id='profile_img' hidden onChange={(e) => {
+                        // setFieldValue('file', e.targat)
+                      }} />
+                      <label htmlFor='profile_img'>photo +</label>
+                    </div>
+                    {/* <span className={`${textcss.text_field}`}> <Field name="file" type="file" hidden/> <label>Photo +</label></span><br /> */}
+
 
                     <label className={`${textcss.label_css}`}>Name</label><br />
                     <span className={`${textcss.text_field}`}> <Field name="name" type="text" /></span><br />
