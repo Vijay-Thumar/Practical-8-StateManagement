@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import imgstyles from './css/UploadImg.module.css'
-// import { Link } from "react-router-dom";
 
 let signupPayload = {
   image: "",
@@ -25,11 +24,9 @@ class Signup2 extends React.Component {
       isSubmited: false,
       isValidate: false,
     }
-
   }
 
   render() {
-
     let formError = {
       image: false,
       name: false,
@@ -79,6 +76,7 @@ class Signup2 extends React.Component {
                 password: "",
                 confirmPassword: "",
               }}
+
               validationSchema={validate}
 
               onSubmit={
@@ -96,7 +94,6 @@ class Signup2 extends React.Component {
                     console.log('You send data to store! all valadition is completed.');
                   }
                 }
-
               }
             >
               {({ errors, touched }, formik) => (
@@ -112,7 +109,6 @@ class Signup2 extends React.Component {
                       <label htmlFor='profile_img'>photo +</label>
                     </div>
                     {/* <span className={`${textcss.text_field}`}> <Field name="file" type="file" hidden/> <label>Photo +</label></span><br /> */}
-
 
                     <label className={`${textcss.label_css}`}>Name</label><br />
                     <span className={`${textcss.text_field}`}> <Field name="name" type="text" /></span><br />
@@ -186,6 +182,5 @@ const mapDispatchToProps = dispatch => {
     getAllUsers: () => dispatch({ type: 'getallusers' })
   }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup2);

@@ -1,0 +1,8 @@
+.Home{
+    background-color: rgb(61, 61, 61);
+    height: 50px;
+    display: flex;
+}
+.logout_button{
+    /* float: right; */
+}

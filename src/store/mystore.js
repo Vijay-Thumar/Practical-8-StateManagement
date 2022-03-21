@@ -1,9 +1,6 @@
 import { createStore } from 'redux';
 import { composeWithDevTools } from "redux-devtools-extension";
 
-
-
-
 const defaultState = {
     name: "",
     email: "",
@@ -18,26 +15,24 @@ const signupReducer = (
     if (action.type === 'storeSignupData') {
         return {
             ...state,
+            ...action.payload,
             // name: action.payload.name,
             // email: action.payload.email,
             // phone: action.payload.phone,
             // password: action.payload.password,
             // confirmPassword: action.payload.confirmPassword,
-            ...action.payload,
-            
-
         }
     }
 
     if (action.type === "clear") {
         return {
             ...state,
+            ...defaultState
             // name: '',
             // email: '',
             // phone: '',
             // password: '',
             // confirmPassword: '',
-            ...defaultState
         }
     }
     if (action.type === "getallusers") {
@@ -53,10 +48,7 @@ const signupReducer = (
     return state;
 }
 
-
-
 const store = createStore(signupReducer, {}, composeWithDevTools());
 // export const store = createStore(rootReducer, {}, composeWithDevTools());
-
 
 export default store;
