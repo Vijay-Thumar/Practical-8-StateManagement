@@ -11,7 +11,7 @@ const defaultState = {
 
 const signupReducer = (
     state = defaultState , action) => {
-
+        console.log(state);
     if (action.type === 'storeSignupData') {
         return {
             ...state,
@@ -27,12 +27,12 @@ const signupReducer = (
     if (action.type === "clear") {
         return {
             ...state,
-            // ...defaultState
-            name: '',
-            email: '',
-            phone: '',
-            password: '',
-            confirmPassword: '',
+            ...defaultState
+            // name: '',
+            // email: '',
+            // phone: '',
+            // password: '',
+            // confirmPassword: '',
         }
     }
 
