@@ -16,7 +16,6 @@ class MainContainer extends React.Component {
                     <Route path='/home' element={<Navigate replace to="/deshbord"/>}/>
                 </Routes>
             </Router>
-                // <Signup2 />
         )
     }
 }

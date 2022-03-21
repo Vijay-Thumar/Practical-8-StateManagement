@@ -27,14 +27,15 @@ const signupReducer = (
     if (action.type === "clear") {
         return {
             ...state,
-            ...defaultState
-            // name: '',
-            // email: '',
-            // phone: '',
-            // password: '',
-            // confirmPassword: '',
+            // ...defaultState
+            name: '',
+            email: '',
+            phone: '',
+            password: '',
+            confirmPassword: '',
         }
     }
+
     if (action.type === "getallusers") {
         return {
             name: state.name,

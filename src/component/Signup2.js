@@ -18,13 +18,13 @@ let signupPayload = {
   confirmPassword: "",
 };
 class Signup2 extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isSubmited: false,
-      isValidate: false,
-    }
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     isSubmited: false,
+  //     isValidate: false,
+  //   }
+  // }
 
   render() {
     let formError = {
