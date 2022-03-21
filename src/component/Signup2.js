@@ -6,7 +6,7 @@ import UploadImg from "./UploadImg";
 import { Formik, Form, Field } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import imgstyles from './css/UploadImg.module.css'
 
 let signupPayload = {
@@ -26,16 +26,11 @@ class Signup2 extends React.Component {
   //   }
   // }
 
-  render() {
-    let formError = {
-      image: false,
-      name: false,
-      email: false,
-      phone: false,
-      password: false,
-      confirmPassword: false,
-    };
+  state = {
+    isSubmited: false,
+  }
 
+  render() {
 
     const validate = Yup.object({
       name: Yup.string()
@@ -86,13 +81,10 @@ class Signup2 extends React.Component {
                   console.log(values);
                   this.props.storeSignupData(values);
                   Object.assign(signupPayload, values);
-
+                  this.setState({ isSubmited: true });
                   console.log('print signupPayload value: ' + JSON.stringify(signupPayload));
                   console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
-
-                  if (!formError.name && !formError.email && !formError.phone && !formError.password && !formError.confirmPassword) {
-                    console.log('You send data to store! all valadition is completed.');
-                  }
+                  <Navigate to='/home' />
                 }
               }
             >
@@ -112,23 +104,23 @@ class Signup2 extends React.Component {
 
                     <label className={`${textcss.label_css}`}>Name</label><br />
                     <span className={`${textcss.text_field}`}> <Field name="name" type="text" /></span><br />
-                    {errors.name && touched.name ? <div className={`${textcss.formik_error}`}>{errors.name} {formError.name = true}</div> : <div> {formError.name = false} </div>}
+                    {errors.name && touched.name ? <div className={`${textcss.formik_error}`}>{errors.name} </div> : null}
 
                     <label className={`${textcss.label_css}`}>Email</label><br />
                     <span className={`${textcss.text_field}`}> <Field name="email" type="text" /></span><br />
-                    {errors.email && touched.email ? <div className={`${textcss.formik_error}`}>{errors.email} {formError.email = true}</div> : <div> {formError.email = false} </div>}
+                    {errors.email && touched.email ? <div className={`${textcss.formik_error}`}>{errors.email} </div> : null}
 
                     <label className={`${textcss.label_css}`}>PhoneNo</label><br />
                     <span className={`${textcss.text_field}`}> <Field name="phone" /></span><br />
-                    {errors.phone && touched.phone ? <div className={`${textcss.formik_error}`}>{errors.phone} {formError.phone = true}</div> : <div> {formError.phone = false} </div>}
+                    {errors.phone && touched.phone ? <div className={`${textcss.formik_error}`}>{errors.phone} </div> : null}
 
                     <label className={`${textcss.label_css}`}>Password</label><br />
                     <span className={`${textcss.text_field}`}> <Field type="password" name="password" /></span><br />
-                    {errors.password && touched.password ? <div className={`${textcss.formik_error}`}>{errors.password} {formError.password = true}</div> : <div> {formError.password = false} </div>}
+                    {errors.password && touched.password ? <div className={`${textcss.formik_error}`}>{errors.password} </div> : null}
 
                     <label className={`${textcss.label_css}`}>ConfirmPassword</label><br />
                     <span className={`${textcss.text_field}`}> <Field type="password" name="confirmPassword" /></span><br />
-                    {errors.confirmPassword && touched.confirmPassword ? <div className={`${textcss.formik_error}`}>{errors.confirmPassword} {formError.confirmPassword = true}</div> : <div> {formError.confirmPassword = false} </div>}
+                    {errors.confirmPassword && touched.confirmPassword ? <div className={`${textcss.formik_error}`}>{errors.confirmPassword} </div> : null}
 
                     <button type="submit" className={`${styles.submit_button}`} >Submit</button>
                     {/* <button type="submit"><Link to='/home'>Submit2</Link></button> */}
@@ -139,11 +131,10 @@ class Signup2 extends React.Component {
                       this.props.clearSignupData();
                       console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
                     }} >Reset</button>
-
-                    <button type='button' className={`${styles.submit_button2}`} onClick={() => {
-                      console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
-                    }}>get alluser</button>
+                    
                     <Link to="/home">go to home</Link>
+                    {this.state.isSubmited ? <Navigate to='/home' /> : null}
+
                   </Form>
                 </div>
               )

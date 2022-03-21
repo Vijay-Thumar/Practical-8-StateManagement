@@ -7,7 +7,7 @@ import { Link,Navigate } from "react-router-dom";
 
 class Home extends React.Component {
     goToHomePage() {
-        console.log('this is delayed call')
+        console.log('Signup first')
         // this.props.history.push("/");
     }
     render() {
