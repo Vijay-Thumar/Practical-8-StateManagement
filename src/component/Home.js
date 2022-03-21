@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from 'react-redux';
 import homecss from './css/Home.module.css';
-import { Link } from "react-router-dom";
-// import { Redirect } from 'react-router'
+import { Link,Navigate } from "react-router-dom";
+// import Signup2 from './Signup2';
+// import { Redirect } from "react-router-dom";
 
 class Home extends React.Component {
     goToHomePage() {
         console.log('this is delayed call')
+        // this.props.history.push("/");
     }
     render() {
 
@@ -25,9 +27,13 @@ class Home extends React.Component {
                             }}>Logout</button>
                         </Link>
                         :
-                        <Link to="/">
-                            <button className={`${homecss.logout_button}`} >Goto Signup</button>
-                        </Link>
+
+                        // <Link to="/">
+                        //     <button className={`${homecss.logout_button}`} >Goto Signup</button>
+                        // </Link>
+                        <div>
+                        <Navigate to='/' />
+                        </div>
                     }
                 </div>
                 <br />
@@ -37,14 +43,15 @@ class Home extends React.Component {
                         <span>User name:</span>
                         <h1>{this.props.uname}</h1>
                         User email:
-                        <h1>{this.props.uname}</h1>
+                        <h1>{this.props.uemail}</h1>
                         User phone:
-                        <h1>{this.props.uname}</h1>
+                        <h1>{this.props.uphone}</h1>
                     </div>
 
                     :
                     <div>
                         No data available please signup
+                        {this.goToHomePage()}
                     </div>
 
                 }
@@ -60,9 +67,6 @@ const mapStateToProps = state => {
         uname: state.name,
         uemail: state.email,
         uphone: state.phone,
-        upass: state.password,
-        ucpass: state.confirmPassword,
-        allusers: state.allUsers,
     }
 };
 
