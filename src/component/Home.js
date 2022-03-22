@@ -5,16 +5,19 @@ import { Link, Navigate } from "react-router-dom";
 
 class Home extends React.Component {
     goToHomePage() {
-        console.log('Signup first')
+        console.log('Signup first');    
     }
     render() {
 
         return (
             <div>
+                {/* Nav bar with logout and login conditionaly */}
                 <div className={`${homecss.Home}`}>
+
                     <div>
                         <h2 className={`${homecss.login_header}`}>Login Page</h2>
                     </div>
+
                     {this.props.uname ?
 
                         <Link to="/">
@@ -28,27 +31,40 @@ class Home extends React.Component {
                             <Navigate to='/' />
                         </div>
                     }
+
+
                 </div>
                 <br />
                 {this.props.uname ?
 
-                    <div>
-                        <span>User image:</span>
-                        <h1>{this.props.uimage}</h1>
-                        <img src={this.props.uimage} alt='User image'></img>
-                        <span>User name:</span>
-                        <h1>{this.props.uname}</h1>
-                        User email:
-                        <h1>{this.props.uemail}</h1>
-                        User phone:
-                        <h1>{this.props.uphone}</h1>
+                    <div className={`${homecss.flex_container}`}>
+
+                        <div className={`${homecss.flex_div1}`}>
+                            <b>User image:</b><br />
+                            <img className={`${homecss.user_image}`} src={this.props.uimage} alt='User image'></img><br />
+                        </div>
+
+                        <div className={`${homecss.flex_div2}`}>
+                            <b>User name:</b>
+                            <h4><i><u>{this.props.uname}</u></i></h4>
+
+                            <b>User email:</b>
+                            <h4><i><u>{this.props.uemail}</u></i></h4>
+
+                            <b>User Phone:</b>
+                            <h4><i><u>{this.props.uphone}</u></i></h4>
+                        </div>
+
                     </div>
+
                     :
                     <div>
                         No data available please signup
                         {this.goToHomePage()}
                     </div>
+
                 }
+
 
             </div>
         )
@@ -67,7 +83,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         clearSignupData: () => dispatch({ type: 'clear' }),
-        getAllUsers: () => dispatch({ type: 'getallusers' })
+        // getAllUsers: () => dispatch({ type: 'getallusers' })
     }
 };
 

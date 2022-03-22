@@ -15,19 +15,15 @@ let signupPayload = {
   password: "",
   confirmPassword: "",
 };
-const SUPPORTED_FORMATS = [ "image/jpeg", "image/png", "image/jpg" ];
+const SUPPORTED_FORMATS = ["image/jpeg", "image/png", "image/jpg"];
 class Signup2 extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     isSubmited: false,
-  //     isValidate: false,
-  //   }
-  // }
-
-  state = {
+ constructor(props) { 
+   super(props);
+   this.state = {
     isSubmited: false,
   }
+ }
+ 
 
   render() {
 
@@ -53,16 +49,16 @@ class Signup2 extends React.Component {
         .oneOf([Yup.ref('password'), null], 'Password dosen\'t match *')
         .required('Required *'),
       image: Yup.mixed()
-      .nullable()
-      .required('Required *')
-      .test(
-        "fileSize",
-        "File size is too large",
-        value => value && value.size <= 1000000)
-      .test(
-        "fileFormat",
-        "Unsupported Format",
-        value => value && SUPPORTED_FORMATS.includes(value.type)),
+        .nullable()
+        .required('Required *')
+        .test(
+          "fileSize",
+          "File size is too large",
+          value => value && value.size <= 2000000) // This is 2mb max writen in bytes
+        .test(
+          "fileFormat",
+          "Unsupported Format",
+          value => value && SUPPORTED_FORMATS.includes(value.type)),
     });
 
     return (
@@ -87,12 +83,12 @@ class Signup2 extends React.Component {
                   console.log(values);
                   this.props.storeSignupData(values);
                   this.setState({ isSubmited: true });
-                  console.log('print signupPayload value: ' + JSON.stringify(signupPayload));
                   console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
                   const imgBlob = URL.createObjectURL(values.image);
                   values.image = imgBlob;
                   Object.assign(signupPayload, values);
-                  console.log('imgBlob: ' + values.image);
+                  console.log('print signupPayload value: ' + JSON.stringify(signupPayload));
+                  // console.log('imgBlob: ' + values.image);
                 }
               }
             >
@@ -108,10 +104,10 @@ class Signup2 extends React.Component {
                         setFieldValue('image', event.target.files[0]);
                       }} />
                       <label htmlFor='image'><sup className={`${styles.required_field}`}>*</sup>photo +</label>
-                      <br/>
-                       {errors.image && touched.image ?  <span className={`${styles.required_field}`}>
-                        <ErrorMessage name="image"/>
-                        </span> : null}
+                      <br />
+                      {errors.image && touched.image ? <span className={`${styles.required_field}`}>
+                        <ErrorMessage name="image" />
+                      </span> : null}
                     </div>
 
                     <label className={`${textcss.label_css}`}>Name<sup className={`${styles.required_field}`}>*</sup>  </label><br />
@@ -134,7 +130,7 @@ class Signup2 extends React.Component {
                     <span className={`${textcss.text_field}`}> <Field type="password" name="confirmPassword" /></span><br />
                     {errors.confirmPassword && touched.confirmPassword ? <div className={`${textcss.formik_error}`}>{errors.confirmPassword} </div> : null}
 
-                    <button type="submit" disabled={!isValid} className={`${styles.submit_button}`} >Submit</button>
+                    <button type="submit" className={`${styles.submit_button}`} >Submit</button>
                     {/* <button type="submit"><Link to='/home'>Submit2</Link></button> */}
 
                     <button type="reset" className={`${styles.reset_button}`} onClick={(data) => {
