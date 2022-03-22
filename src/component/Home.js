@@ -1,14 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux';
 import homecss from './css/Home.module.css';
-import { Link,Navigate } from "react-router-dom";
-// import Signup2 from './Signup2';
-// import { Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 class Home extends React.Component {
     goToHomePage() {
         console.log('Signup first')
-        // this.props.history.push("/");
     }
     render() {
 
@@ -27,12 +24,8 @@ class Home extends React.Component {
                             }}>Logout</button>
                         </Link>
                         :
-
-                        // <Link to="/">
-                        //     <button className={`${homecss.logout_button}`} >Goto Signup</button>
-                        // </Link>
                         <div>
-                        <Navigate to='/' />
+                            <Navigate to='/' />
                         </div>
                     }
                 </div>
@@ -40,6 +33,9 @@ class Home extends React.Component {
                 {this.props.uname ?
 
                     <div>
+                        <span>User image:</span>
+                        <h1>{this.props.uimage}</h1>
+                        <img src={this.props.uimage} alt='User image'></img>
                         <span>User name:</span>
                         <h1>{this.props.uname}</h1>
                         User email:
@@ -47,15 +43,12 @@ class Home extends React.Component {
                         User phone:
                         <h1>{this.props.uphone}</h1>
                     </div>
-
                     :
                     <div>
                         No data available please signup
                         {this.goToHomePage()}
                     </div>
-
                 }
-
 
             </div>
         )
@@ -64,6 +57,7 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        uimage: state.image,
         uname: state.name,
         uemail: state.email,
         uphone: state.phone,

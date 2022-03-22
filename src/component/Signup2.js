@@ -2,21 +2,20 @@ import React from "react";
 import styles from './css/Signup.module.css';
 import textcss from './css/TextField.module.css'
 import SignupImg from '../assets/signup.png';
-import UploadImg from "./UploadImg";
 import { Formik, Form, Field } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
 import { Link, Navigate } from "react-router-dom";
-import imgstyles from './css/UploadImg.module.css'
 
 let signupPayload = {
-  image: "",
+  image: null,
   name: "",
   email: "",
   phone: "",
   password: "",
   confirmPassword: "",
 };
+
 class Signup2 extends React.Component {
   // constructor(props) {
   //   super(props)
@@ -57,14 +56,12 @@ class Signup2 extends React.Component {
 
     return (
       <div className={`${styles.signup_section}`}>
-
         <div className={`${styles.flex_container}`}>
-
           {/* Form */}
           <div className={`${styles.form_container}`}>
             <Formik
               initialValues={{
-                image: "",
+                image: null,
                 name: "",
                 email: "",
                 phone: "",
@@ -75,30 +72,31 @@ class Signup2 extends React.Component {
               validationSchema={validate}
 
               onSubmit={
-
                 values => {
-
                   console.log(values);
                   this.props.storeSignupData(values);
-                  Object.assign(signupPayload, values);
                   this.setState({ isSubmited: true });
                   console.log('print signupPayload value: ' + JSON.stringify(signupPayload));
                   console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
-                  <Navigate to='/home' />
+                  const imgBlob = URL.createObjectURL(values.image);
+                  values.image = imgBlob;
+                  Object.assign(signupPayload, values);
+                  console.log('imgBlob: ' + values.image);
                 }
               }
             >
-              {({ errors, touched }, formik) => (
+
+              {({ errors, touched, setFieldValue }) => (
                 <div className={`${styles.main_signup_container}`}>
                   <Form >
                     <h1>Sign up</h1>
-                    {/* <UploadImg className={`${styles.profile_photo}`} /> */}
 
-                    <div className={`${imgstyles.upload_img}`}>
-                      <Field type='file' name="file" id='profile_img' hidden onChange={(e) => {
-                        // setFieldValue('file', e.targat)
+
+                    <div className={`${styles.upload_img}`}>
+                      <input type='file' name="image" id="image" hidden onChange={(event) => {
+                        setFieldValue('image', event.target.files[0]);
                       }} />
-                      <label htmlFor='profile_img'>photo +</label>
+                      <label htmlFor='image'>photo +</label>
                     </div>
                     {/* <span className={`${textcss.text_field}`}> <Field name="file" type="file" hidden/> <label>Photo +</label></span><br /> */}
 
@@ -131,7 +129,7 @@ class Signup2 extends React.Component {
                       this.props.clearSignupData();
                       console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
                     }} >Reset</button>
-                    
+
                     <Link to="/home">go to home</Link>
                     {this.state.isSubmited ? <Navigate to='/home' /> : null}
 

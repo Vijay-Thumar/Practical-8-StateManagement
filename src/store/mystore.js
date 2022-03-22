@@ -2,6 +2,7 @@ import { createStore } from 'redux';
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const defaultState = {
+    image: null,
     name: "",
     email: "",
     phone: "",
@@ -11,8 +12,8 @@ const defaultState = {
 
 const signupReducer = (
     state = defaultState , action) => {
-        console.log(state);
     if (action.type === 'storeSignupData') {
+        // console.log(action.payload);
         return {
             ...state,
             ...action.payload,
@@ -21,6 +22,7 @@ const signupReducer = (
             // phone: action.payload.phone,
             // password: action.payload.password,
             // confirmPassword: action.payload.confirmPassword,
+            
         }
     }
 
@@ -38,6 +40,7 @@ const signupReducer = (
 
     if (action.type === "getallusers") {
         return {
+            image: state.image,
             name: state.name,
             email: state.email,
             phone: state.phone,
