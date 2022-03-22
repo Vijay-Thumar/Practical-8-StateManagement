@@ -2,7 +2,7 @@ import React from "react";
 import styles from './css/Signup.module.css';
 import textcss from './css/TextField.module.css'
 import SignupImg from '../assets/signup.png';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
 import { Link, Navigate } from "react-router-dom";
@@ -15,7 +15,7 @@ let signupPayload = {
   password: "",
   confirmPassword: "",
 };
-
+const SUPPORTED_FORMATS = [ "image/jpeg", "image/png", "image/jpg" ];
 class Signup2 extends React.Component {
   // constructor(props) {
   //   super(props)
@@ -52,6 +52,17 @@ class Signup2 extends React.Component {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Password dosen\'t match *')
         .required('Required *'),
+      image: Yup.mixed()
+      .nullable()
+      .required('Required *')
+      .test(
+        "fileSize",
+        "File size is too large",
+        value => value && value.size <= 1000000)
+      .test(
+        "fileFormat",
+        "Unsupported Format",
+        value => value && SUPPORTED_FORMATS.includes(value.type)),
     });
 
     return (
@@ -86,7 +97,7 @@ class Signup2 extends React.Component {
               }
             >
 
-              {({ errors, touched, setFieldValue }) => (
+              {({ errors, touched, setFieldValue, isValid }) => (
                 <div className={`${styles.main_signup_container}`}>
                   <Form >
                     <h1>Sign up</h1>
@@ -96,31 +107,34 @@ class Signup2 extends React.Component {
                       <input type='file' name="image" id="image" hidden onChange={(event) => {
                         setFieldValue('image', event.target.files[0]);
                       }} />
-                      <label htmlFor='image'>photo +</label>
+                      <label htmlFor='image'><sup className={`${styles.required_field}`}>*</sup>photo +</label>
+                      <br/>
+                       {errors.image && touched.image ?  <span className={`${styles.required_field}`}>
+                        <ErrorMessage name="image"/>
+                        </span> : null}
                     </div>
-                    {/* <span className={`${textcss.text_field}`}> <Field name="file" type="file" hidden/> <label>Photo +</label></span><br /> */}
 
-                    <label className={`${textcss.label_css}`}>Name</label><br />
+                    <label className={`${textcss.label_css}`}>Name<sup className={`${styles.required_field}`}>*</sup>  </label><br />
                     <span className={`${textcss.text_field}`}> <Field name="name" type="text" /></span><br />
                     {errors.name && touched.name ? <div className={`${textcss.formik_error}`}>{errors.name} </div> : null}
 
-                    <label className={`${textcss.label_css}`}>Email</label><br />
+                    <label className={`${textcss.label_css}`}>Email<sup className={`${styles.required_field}`}>*</sup>  </label><br />
                     <span className={`${textcss.text_field}`}> <Field name="email" type="text" /></span><br />
                     {errors.email && touched.email ? <div className={`${textcss.formik_error}`}>{errors.email} </div> : null}
 
-                    <label className={`${textcss.label_css}`}>PhoneNo</label><br />
+                    <label className={`${textcss.label_css}`}>PhoneNo<sup className={`${styles.required_field}`}>*</sup>  </label><br />
                     <span className={`${textcss.text_field}`}> <Field name="phone" /></span><br />
                     {errors.phone && touched.phone ? <div className={`${textcss.formik_error}`}>{errors.phone} </div> : null}
 
-                    <label className={`${textcss.label_css}`}>Password</label><br />
+                    <label className={`${textcss.label_css}`}>Password<sup className={`${styles.required_field}`}>*</sup>  </label><br />
                     <span className={`${textcss.text_field}`}> <Field type="password" name="password" /></span><br />
                     {errors.password && touched.password ? <div className={`${textcss.formik_error}`}>{errors.password} </div> : null}
 
-                    <label className={`${textcss.label_css}`}>ConfirmPassword</label><br />
+                    <label className={`${textcss.label_css}`}>ConfirmPassword<sup className={`${styles.required_field}`}>*</sup>  </label><br />
                     <span className={`${textcss.text_field}`}> <Field type="password" name="confirmPassword" /></span><br />
                     {errors.confirmPassword && touched.confirmPassword ? <div className={`${textcss.formik_error}`}>{errors.confirmPassword} </div> : null}
 
-                    <button type="submit" className={`${styles.submit_button}`} >Submit</button>
+                    <button type="submit" disabled={!isValid} className={`${styles.submit_button}`} >Submit</button>
                     {/* <button type="submit"><Link to='/home'>Submit2</Link></button> */}
 
                     <button type="reset" className={`${styles.reset_button}`} onClick={(data) => {

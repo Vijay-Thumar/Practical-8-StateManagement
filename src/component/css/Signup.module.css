@@ -50,3 +50,7 @@
   margin-top: 20px;
   color: rgb(50,50,50);
 }
+.required_field{
+  color: red;
+  font-size: small;
+}
