@@ -6,6 +6,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from 'react-redux';
 import * as Yup from "yup";
 import { Link, Navigate } from "react-router-dom";
+import Tooltip from "@material-ui/core/Tooltip";
+
 
 let signupPayload = {
   image: null,
@@ -17,13 +19,14 @@ let signupPayload = {
 };
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png", "image/jpg"];
 class Signup2 extends React.Component {
- constructor(props) { 
-   super(props);
-   this.state = {
-    isSubmited: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSubmited: false,
+      isPhotoUploaded: false,
+    }
   }
- }
- 
+
 
   render() {
 
@@ -38,12 +41,14 @@ class Signup2 extends React.Component {
         .required('Required *'),
 
       phone: Yup.string()
-        .max(10, 'Please enter valid phone number *')
+        .max(10, 'Maximum 10 10 digits *')
         .min(10, 'Number must be 10 digits *')
         .required('Required *'),
 
       password: Yup.string()
-        .required('Required *'),
+        .required('Required *')
+        .matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{6,20}\S$/, 'Password Should be like: EX@mple.123abc'),
+
 
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Password dosen\'t match *')
@@ -76,12 +81,12 @@ class Signup2 extends React.Component {
                 confirmPassword: "",
               }}
 
-              // validationSchema={validate}
+              validationSchema={validate}
 
               onSubmit={
                 values => {
                   console.log(values);
-                  this.props.storeSignupData(values);
+                  this.props.storeSignupData();
                   this.setState({ isSubmited: true });
                   console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
                   const imgBlob = URL.createObjectURL(values.image);
@@ -98,37 +103,41 @@ class Signup2 extends React.Component {
                   <Form >
                     <h1>Sign up</h1>
 
-
                     <div className={`${styles.upload_img}`}>
                       <input type='file' name="image" id="image" hidden onChange={(event) => {
                         setFieldValue('image', event.target.files[0]);
+                        console.log('event.target.files[0]: ' + event.target.files[0].name);
+                        event.target.files[0].name ? this.setState({ isPhotoUploaded: true }) : this.setState({ isPhotoUploaded: false })
                       }} />
+                      {this.state.isPhotoUploaded && '!'}
+
                       <label htmlFor='image'><sup className={`${styles.required_field}`}>*</sup>photo +</label>
                       <br />
-                      {errors.image && touched.image ? <span className={`${styles.required_field}`}>
-                        <ErrorMessage name="image" />
-                      </span> : null}
+                      {errors.image && touched.image ?
+                        <span className={`${styles.required_field}`}>
+                          <ErrorMessage name="image" />
+                        </span> : null}
                     </div>
 
-                    <label className={`${textcss.label_css}`}>Name<sup className={`${styles.required_field}`}>*</sup>  </label><br />
+                    <label className={`${textcss.label_css}`}>Name<sup className={`${styles.required_field}`}>*</sup></label><br />
                     <span className={`${textcss.text_field}`}> <Field name="name" type="text" /></span><br />
-                    {errors.name && touched.name ? <div className={`${textcss.formik_error}`}>{errors.name} </div> : null}
+                    <span className={`${textcss.formik_error}`}> <ErrorMessage name="name" /></span>
 
-                    <label className={`${textcss.label_css}`}>Email<sup className={`${styles.required_field}`}>*</sup>  </label><br />
+                    <label className={`${textcss.label_css}`}>Email<sup className={`${styles.required_field}`}>*</sup></label><br />
                     <span className={`${textcss.text_field}`}> <Field name="email" type="text" /></span><br />
-                    {errors.email && touched.email ? <div className={`${textcss.formik_error}`}>{errors.email} </div> : null}
+                    <span className={`${textcss.formik_error}`}> <ErrorMessage name="email" /></span>
 
-                    <label className={`${textcss.label_css}`}>PhoneNo<sup className={`${styles.required_field}`}>*</sup>  </label><br />
-                    <span className={`${textcss.text_field}`}> <Field name="phone" /></span><br />
-                    {errors.phone && touched.phone ? <div className={`${textcss.formik_error}`}>{errors.phone} </div> : null}
+                    <label className={`${textcss.label_css}`}>PhoneNo<sup className={`${styles.required_field}`}>*</sup></label><br />
+                    <span className={`${textcss.text_field}`}> <Field name="phone" type="number" placeholder='+91' /></span><br />
+                    <span className={`${textcss.formik_error}`}> <ErrorMessage name="phone" /></span>
 
-                    <label className={`${textcss.label_css}`}>Password<sup className={`${styles.required_field}`}>*</sup>  </label><br />
+                    <label className={`${textcss.label_css}`}>Password<sup className={`${styles.required_field}`}>*</sup></label><br />
                     <span className={`${textcss.text_field}`}> <Field type="password" name="password" /></span><br />
-                    {errors.password && touched.password ? <div className={`${textcss.formik_error}`}>{errors.password} </div> : null}
+                    <span className={`${textcss.formik_error}`}> <ErrorMessage name="password" /></span>
 
-                    <label className={`${textcss.label_css}`}>ConfirmPassword<sup className={`${styles.required_field}`}>*</sup>  </label><br />
+                    <label className={`${textcss.label_css}`}>ConfirmPassword<sup className={`${styles.required_field}`}>*</sup></label><br />
                     <span className={`${textcss.text_field}`}> <Field type="password" name="confirmPassword" /></span><br />
-                    {errors.confirmPassword && touched.confirmPassword ? <div className={`${textcss.formik_error}`}>{errors.confirmPassword} </div> : null}
+                    <span className={`${textcss.formik_error}`}> <ErrorMessage name="confirmPassword" /></span>
 
                     <button type="submit" className={`${styles.submit_button}`} >Submit</button>
                     {/* <button type="submit"><Link to='/home'>Submit2</Link></button> */}
@@ -140,10 +149,21 @@ class Signup2 extends React.Component {
                       console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
                     }} >Reset</button>
 
-                    <Link to="/home">go to home</Link>
+                    <Tooltip title="For testing purpose">
+
+                      <button className={`${styles.gohome_button}`}>
+                        <Link to="/home">go to home</Link>
+                      </button>
+                    </Tooltip>
+
+
+
                     {this.state.isSubmited ? <Navigate to='/home' /> : null}
 
                   </Form>
+                  <div class="tooltip"><b>Hover over me</b>
+                    <span class="tooltiptext">Tooltip text</span>
+                  </div>
                 </div>
               )
               }

@@ -5,7 +5,7 @@ import { Link, Navigate } from "react-router-dom";
 
 class Home extends React.Component {
     goToHomePage() {
-        console.log('Signup first');    
+        console.log('Signup first');
     }
     render() {
 
@@ -41,18 +41,18 @@ class Home extends React.Component {
 
                         <div className={`${homecss.flex_div1}`}>
                             <b>User image:</b><br />
-                            <img className={`${homecss.user_image}`} src={this.props.uimage} alt='User image'></img><br />
+                            <img className={`${homecss.user_image}`} src={this.props.uimage} alt='User_avatar'></img><br />
                         </div>
 
                         <div className={`${homecss.flex_div2}`}>
-                            <b>User name:</b><br/>
-                            {this.props.uname ? <i><u>{this.props.uname}</u></i> : <i><u>Name not found</u></i>}<br/>
+                            <b>User name:</b><br />
+                            {this.props.uname ? <i><u>{this.props.uname}</u></i> : <i><u>Name not found</u></i>}<br />
 
-                            <b>User email:</b><br/>
-                            {this.props.uemail ? <i><u>{this.props.uemail}</u></i> : <i><u>Email not found</u></i> }<br/>
+                            <b>User email:</b><br />
+                            {this.props.uemail ? <i><u>{this.props.uemail}</u></i> : <i><u>Email not found</u></i>}<br />
 
-                            <b>User Phone:</b><br/>
-                            {this.props.uphone ? <i><u>{this.props.uphone}</u></i> : <i><u>Phone not found</u></i>}<br/>
+                            <b>User Phone:</b><br />
+                            {this.props.uphone ? <i><u>{this.props.uphone}</u></i> : <i><u>Phone not found</u></i>}<br />
                         </div>
 
                     </div>
