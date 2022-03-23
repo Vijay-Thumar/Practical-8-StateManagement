@@ -76,7 +76,7 @@ class Signup2 extends React.Component {
                 confirmPassword: "",
               }}
 
-              validationSchema={validate}
+              // validationSchema={validate}
 
               onSubmit={
                 values => {

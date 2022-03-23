@@ -14,8 +14,8 @@ class Home extends React.Component {
                 {/* Nav bar with logout and login conditionaly */}
                 <div className={`${homecss.Home}`}>
 
-                    <div>
-                        <h2 className={`${homecss.login_header}`}>Login Page</h2>
+                    <div className={`${homecss.home_header}`}>
+                        <Link to='/'><h2 className={`${homecss.login_header}`}>Home Page</h2></Link>
                     </div>
 
                     {this.props.uname ?
@@ -45,14 +45,14 @@ class Home extends React.Component {
                         </div>
 
                         <div className={`${homecss.flex_div2}`}>
-                            <b>User name:</b>
-                            <h4><i><u>{this.props.uname}</u></i></h4>
+                            <b>User name:</b><br/>
+                            {this.props.uname ? <i><u>{this.props.uname}</u></i> : <i><u>Name not found</u></i>}<br/>
 
-                            <b>User email:</b>
-                            <h4><i><u>{this.props.uemail}</u></i></h4>
+                            <b>User email:</b><br/>
+                            {this.props.uemail ? <i><u>{this.props.uemail}</u></i> : <i><u>Email not found</u></i> }<br/>
 
-                            <b>User Phone:</b>
-                            <h4><i><u>{this.props.uphone}</u></i></h4>
+                            <b>User Phone:</b><br/>
+                            {this.props.uphone ? <i><u>{this.props.uphone}</u></i> : <i><u>Phone not found</u></i>}<br/>
                         </div>
 
                     </div>

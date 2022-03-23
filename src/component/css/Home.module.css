@@ -41,3 +41,10 @@
     background-position: center center;
     background-size: cover;
 }
+.home_header{
+  text-decoration: none;
+}
+
+a{
+  text-decoration: none;
+}
