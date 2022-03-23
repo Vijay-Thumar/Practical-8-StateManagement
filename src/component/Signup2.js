@@ -86,13 +86,13 @@ class Signup2 extends React.Component {
               onSubmit={
                 values => {
                   console.log(values);
-                  this.props.storeSignupData();
                   this.setState({ isSubmited: true });
                   console.log('data from store : \n' + this.props.uname + '\n' + this.props.uemail + '\n' + this.props.uphone + '\n' + this.props.upass + '\n' + this.props.ucpass);
                   const imgBlob = URL.createObjectURL(values.image);
                   values.image = imgBlob;
                   Object.assign(signupPayload, values);
                   console.log('print signupPayload value: ' + JSON.stringify(signupPayload));
+                  this.props.storeSignupData();
                   // console.log('imgBlob: ' + values.image);
                 }
               }
